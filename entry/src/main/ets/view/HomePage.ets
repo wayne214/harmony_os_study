@@ -20,6 +20,8 @@ export default struct HomePage {
           SwiperView()
 
           CenterGridview()
+
+          ListImageView()
       }
       .width(StyleConstants.FULL_PARENT)
       .backgroundColor($r('app.color.background'))
@@ -116,5 +118,86 @@ struct GridItemView {
       }
       CommonUtils.showToastContent(this.gridItemPrompt);
     })
+  }
+}
+
+@Preview
+@Component
+struct ListImageView {
+  @StorageProp('currentDeviceSize') currentDeviceSize: string = CommonConstants.SM;
+
+  build() {
+    Column() {
+      Text($r('app.string.home_list'))
+        .fontSize($r('app.float.normal_text_size'))
+        .fontWeight(FontWeight.Medium)
+        .alignSelf(ItemAlign.Start)
+        .margin({
+          left: $r('app.float.common_margin'),
+          top: $r('app.float.common_margin')
+        })
+
+      List({ space: StyleConstants.IMAGE_LIST_SPACE }) {
+        ForEach(MainViewModel.getListImageData(), (secondItem: ItemData) => {
+          ListItem() {
+            ImageItemView({ secondItem: secondItem })
+          }
+          .margin({ right: $r('app.float.list_margin') })
+          .borderRadius($r('app.float.image_list_radius'))
+          .onClick(() => {
+            if (!secondItem?.clickPrompt) {
+              return;
+            }
+            CommonUtils.showToastContent(secondItem.clickPrompt);
+          })
+        }, (secondItem: ItemData) => JSON.stringify(secondItem.id))
+      }
+      .width(StyleConstants.COMMON_WIDTH)
+      .margin($r('app.float.common_margin'))
+      .lanes(this.currentDeviceSize === CommonConstants.SM ?
+      StyleConstants.LIST_COLUMN_TWO :
+        (this.currentDeviceSize === CommonConstants.MD ?
+        StyleConstants.LIST_COLUMN_THREE : StyleConstants.LIST_COLUMN_FOUR))
+    }
+  }
+}
+
+@Component
+struct ImageItemView {
+  private secondItem?: ItemData;
+  private listItemImage?: Resource;
+  private listItemTitle?: Resource;
+  private listItemOthers?: Resource;
+
+  aboutToAppear() {
+    if (this.secondItem !== undefined) {
+      this.listItemImage = this.secondItem.img;
+      this.listItemTitle = this.secondItem.title;
+      this.listItemOthers = this.secondItem.others;
+    }
+  }
+
+  build() {
+    Stack({ alignContent: Alignment.TopStart }) {
+      if (this.listItemImage) {
+        Image(this.listItemImage)
+          .objectFit(ImageFit.Cover)
+          .aspectRatio(StyleConstants.GRID_ASPECT_RATIO)
+      }
+      Column() {
+        Text(this.listItemTitle)
+          .fontSize($r('app.float.normal_text_size'))
+          .fontWeight(FontWeight.Medium)
+          .alignSelf(ItemAlign.Start)
+        Text(this.listItemOthers)
+          .margin({ top: $r('app.float.home_list_margin') })
+          .fontSize($r('app.float.little_text_size'))
+          .fontColor($r('app.color.home_grid_fontColor'))
+      }
+      .margin({
+        left: $r('app.float.item_text_margin'),
+        top: $r('app.float.item_text_margin')
+      })
+    }
   }
 }
