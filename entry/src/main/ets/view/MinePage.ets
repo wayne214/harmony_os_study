@@ -1,6 +1,9 @@
 import { CommonConstants } from '../common/constants/CommonConstants'
 import StyleConstants from '../common/constants/StyleConstants'
 import CommonUtils  from '../common/utils/CommonUtils'
+import Logger from '../common/utils/Logger'
+import ItemData from '../viewmodel/ItemData'
+import MainViewModel from '../viewmodel/MainViewModel'
 @Component
 export default struct MinePage {
   build() {
@@ -31,6 +34,10 @@ export default struct MinePage {
             .margin({top: $r('app.float.tab_titles_margin')})
             .alignSelf(ItemAlign.Start)
 
+          MineTitleView()
+
+          MineListView()
+
           Blank()
 
           Button($r('app.string.mine_button'))
@@ -55,5 +62,117 @@ export default struct MinePage {
 
   logout(){
     CommonUtils.routerPage(CommonConstants.LOGIN_PAGE_URL)
+  }
+}
+
+@Preview
+@Component
+struct MineListView {
+  build(){
+    List() {
+      ForEach(MainViewModel.getMineListData(),(item: ItemData)=>{
+        ListItem(){
+          Item({item: item})
+        }
+        .height('48vp')
+      }, (item: ItemData) => JSON.stringify(item))
+    }
+    .width('100%')
+    .backgroundColor(Color.White)
+    .divider({
+      strokeWidth: '0.25vp',
+      color: $r('app.color.item_divider_color'),
+      startMargin: $r('app.float.list_start_margin'),
+      endMargin: $r('app.float.list_end_margin')
+    })
+    .borderRadius('24vp')
+    .padding({
+      top: '4vp',
+      bottom: '4vp'
+    })
+  }
+}
+
+@Component
+struct Item {
+  private item?:ItemData;
+  private itemCellImage?: Resource;
+  private itemCellTitle?: Resource;
+  private itemCellOthers?: Resource;
+  private itemClickPrompt?: Resource;
+  aboutToAppear(){
+    if (this.item) {
+      Logger.info(CommonConstants.TAG_LIST_ITEM, 'item = ' + JSON.stringify(this.item));
+      this.itemCellImage = this.item.img;
+      this.itemCellTitle = this.item.title;
+      this.itemCellOthers = this.item.others;
+      this.itemClickPrompt = this.item.clickPrompt;
+    }
+  }
+  build(){
+    Row(){
+      Row({ space: StyleConstants.COMMON_SPACE }) {
+        if(this.itemCellImage) {
+          Image(this.itemCellImage)
+            .width('22vp')
+            .height('22vp')
+        }
+        Text(this.itemCellTitle)
+          .fontSize('16fp')
+      }
+      if(this.itemCellOthers === null) {
+        Image($r('app.media.ic_right_grey'))
+          .width('12vp')
+          .height('12vp')
+      } else {
+        Toggle({type: ToggleType.Switch,isOn: false})
+          .onChange((isChange: Boolean)=>{
+            let change: Resource = isChange ? $r('app.string.open_news') : $r('app.string.close_news');
+            CommonUtils.showToastContent(this.itemClickPrompt);
+          })
+      }
+    }
+    .justifyContent(FlexAlign.SpaceBetween)
+    .width('100%')
+    .padding({
+      left: '12vp',
+      right: '12vp'
+    })
+    .onClick(()=>{
+      if (this.itemCellOthers === null && this.itemClickPrompt) {
+        CommonUtils.showToastContent(this.itemClickPrompt);
+      }
+    })
+  }
+}
+
+@Preview
+@Component
+struct MineTitleView {
+  build(){
+    Row(){
+      Image($r('app.media.ic_account'))
+      .width($r('app.float.mine_title_size'))
+      .height($r('app.float.mine_title_size'))
+      Column(){
+        Text('张先生')
+          .fontSize("20fp")
+        Text($r('app.string.mine_title_email'))
+          .fontSize('12fp')
+          .margin({top: '4vp'})
+      }
+      .margin({left: '14vp'})
+      .alignItems(HorizontalAlign.Start)
+    }
+    .alignItems(VerticalAlign.Center)
+    .width('100%')
+    .height('96vp')
+    .backgroundColor(Color.White)
+    .padding({left: '24vp'})
+    .borderRadius('24vp')
+    .margin({
+      top: '35vp',
+      bottom: '12vp'
+    })
   }
 }
