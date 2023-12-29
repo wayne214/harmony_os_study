@@ -1,3 +1,4 @@
+import router from '@ohos.router'
 import { CommonConstants } from '../common/constants/CommonConstants'
 import StyleConstants from '../common/constants/StyleConstants'
 import CommonUtils  from '../common/utils/CommonUtils'
@@ -35,6 +36,11 @@ export default struct MinePage {
             .alignSelf(ItemAlign.Start)
 
           MineTitleView()
+
+          Button('快速使用')
+            .onClick(() => {
+              router.pushUrl({ url: 'pages/quickStart' })
+            })
 
           MineListView()
 

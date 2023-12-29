@@ -4,8 +4,6 @@ import CommonUtils from '../common/utils/CommonUtils';
 import ItemData from '../viewmodel/ItemData';
 import MainViewModel from '../viewmodel/MainViewModel';
 
-import {PullToRefresh} from '@ohos/pulltorefresh'
-
 @Component
 export default struct HomePage {
   build() {
