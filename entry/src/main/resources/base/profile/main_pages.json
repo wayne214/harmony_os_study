@@ -3,6 +3,7 @@
     "pages/ListPage",
     "pages/DetailPage",
     "pages/LoginPage",
-    "pages/MainPage"
+    "pages/MainPage",
+    "pages/NewsPage"
   ]
 }
