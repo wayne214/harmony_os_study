@@ -20,7 +20,7 @@ export default struct NewsList {
     NewsViewModel.getNewsList(this.newsModel.currentPage, this.newsModel.pageSize,Const.GET_NEWS_LIST)
       .then((data: NewsData[])=>{
         this.newsModel.pageState = PageState.Success;
-        if(data.length === this.newsModel.pageState) {
+        if(data.length === this.newsModel.pageSize) {
           this.newsModel.currentPage++;
           this.newsModel.hasMore = true;
         } else {
