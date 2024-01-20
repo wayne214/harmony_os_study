@@ -4,6 +4,8 @@
     "pages/DetailPage",
     "pages/LoginPage",
     "pages/MainPage",
-    "pages/NewsPage"
+    "pages/NewsPage",
+    "pages/SimpleVideoPage",
+    "pages/SimpleVideoPlay"
   ]
 }

@@ -111,6 +111,10 @@
     {
       "name": "dividerColor",
       "value": "#E2E2E2"
+    },
+    {
+      "name": "white",
+      "value": "#FFFFFF"
     }
   ]
 }
