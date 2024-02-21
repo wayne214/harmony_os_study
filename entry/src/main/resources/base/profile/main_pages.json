@@ -6,6 +6,7 @@
     "pages/MainPage",
     "pages/NewsPage",
     "pages/SimpleVideoPage",
-    "pages/SimpleVideoPlay"
+    "pages/SimpleVideoPlay",
+    "pages/TestPage"
   ]
 }
