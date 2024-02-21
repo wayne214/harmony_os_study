@@ -7,6 +7,12 @@
     "pages/NewsPage",
     "pages/SimpleVideoPage",
     "pages/SimpleVideoPlay",
-    "pages/TestPage"
+    "pages/TestPage",
+    "pages/SplashPage",
+    "pages/find/FindPage",
+    "pages/hot/HotPage",
+    "pages/home/HomePage",
+    "pages/mine/MinePage",
+    "pages/container/ContainerPage"
   ]
 }

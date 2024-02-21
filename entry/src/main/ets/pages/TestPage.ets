@@ -1,5 +1,5 @@
-@Entry
 @Component
+@Entry
 struct TestPage {
   @State message: string = 'Hello World'
 

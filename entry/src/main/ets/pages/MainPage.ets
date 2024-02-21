@@ -1,10 +1,14 @@
 import { CommonConstants } from '../common/constants/CommonConstants';
 import StyleConstants from '../common/constants/StyleConstants';
 import MultipleDevicesUtils from '../common/utils/MultipleDevicesUtils';
-import HomePage from '../view/HomePage';
-import MinePage from '../view/MinePage';
-@Entry
+import { TabItem } from '../model/TabItem';
+import HomePage from '../pages/home/HomePage';
+import MinePage from '../pages/mine/MinePage';
+import FindPage from '../pages/find/FindPage';
+import HotPage from '../pages/hot/HotPage';
+import MainViewModel2 from '../viewmodel/MainViewModel2'
 @Component
+@Entry
 struct MainPage {
   @StorageProp('currentDeviceSize') currentDeviceSize: string = CommonConstants.SM;
   @State currentIndex: number = CommonConstants.HOME_TAB_INDEX;
@@ -19,12 +23,22 @@ struct MainPage {
       TabContent(){
         HomePage()
       }
-      .tabBar(this.TabBuilder(CommonConstants.HOME_TITLE, CommonConstants.HOME_TAB_INDEX, $r('app.media.ic_home_selected'), $r('app.media.ic_home_normal')))
+      .tabBar(this.TabBottom(MainViewModel2.tabTitle[0], 0))
+
+      TabContent() {
+        FindPage()
+      }
+      .tabBar(this.TabBottom(MainViewModel2.tabTitle[1], 1))
+
+      TabContent() {
+        HotPage()
+      }
+      .tabBar(this.TabBottom(MainViewModel2.tabTitle[2], 2))
 
       TabContent(){
         MinePage()
       }
-      .tabBar(this.TabBuilder(CommonConstants.MINE_TITLE, CommonConstants.MINE_TAB_INDEX, $r('app.media.ic_mine_selected'), $r('app.media.ic_mine_normal')))
+      .tabBar(this.TabBottom(MainViewModel2.tabTitle[3], 3))
     }
     .barWidth(this.currentDeviceSize === CommonConstants.LG ? StyleConstants.BAR_WIDTH_LG : StyleConstants.FULL_PARENT)
     .barHeight(this.currentDeviceSize === CommonConstants.LG ? StyleConstants.BAR_HEIGHT_LG : StyleConstants.BAR_DEFAULT_HEIGHT)
@@ -35,6 +49,39 @@ struct MainPage {
     .onChange((index)=>{
       this.currentIndex = index;
     })
+  }
+
+  onPageShow() {
+
+  }
+  onPageHide() {
+
+  }
+
+  @Builder TabBottom(item: TabItem, index: number) {
+    Column() {
+      Image(this.currentIndex === index ? item.imageActivated: item.imageOriginal)
+        .height('21vp')
+        .width('21vp')
+        .margin({
+          top: '8vp',
+          bottom: '5vp'
+        })
+      Text(item.title)
+        .width(CommonConstants.FULL_WIDTH_PERCENT)
+        .height('14vp')
+        .fontSize(10)
+        .fontWeight(500)
+        .fontColor(this.currentIndex === index ? '#d81e06' : Color.Gray)
+        .textAlign(TextAlign.Center)
+        .margin({
+          bottom: 7
+        })
+    }
+    .justifyContent(FlexAlign.Center)
+    .height(CommonConstants.FULL_HEIGHT_PERCENT)
+    .width(CommonConstants.FULL_WIDTH_PERCENT)
+    .backgroundColor('#f5f5f5')
   }
 
   @Builder TabBuilder(title, index, selectedImg, normalImg) {
