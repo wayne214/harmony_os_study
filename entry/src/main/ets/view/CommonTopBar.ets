@@ -49,7 +49,7 @@ export struct CommonTopBar {
   build() {
     Column() {
       Blank()
-        .backgroundColor('#d8106')
+        .backgroundColor('#d81e06')
         .opacity(this.alpha)
 
       Stack({alignContent: Alignment.Start}) {
@@ -89,9 +89,9 @@ export struct CommonTopBar {
           .height('50vp')
           .width('50vp')
         }
-
-
       }
+      .height('50vp')
+      .width('100%')
     }
     .height(this.statusBarHeight)
   }

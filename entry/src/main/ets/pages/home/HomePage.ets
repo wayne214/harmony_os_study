@@ -1,16 +1,17 @@
+import { CommonTopBar } from '../../view/CommonTopBar'
 @Component
 export default struct HomePage {
   @State message: string = 'Hello World'
 
   build() {
-    Row() {
-      Column() {
-        Text(this.message)
-          .fontSize(50)
-          .fontWeight(FontWeight.Bold)
+    Column(){
+      CommonTopBar({title: '首页', backButton: false, alpha: 1})
+        .align(Alignment.TopStart)
+
+      Stack() {
+
       }
-      .width('100%')
+      .layoutWeight(1)
     }
-    .height('100%')
   }
 }

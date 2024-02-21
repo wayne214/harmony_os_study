@@ -43,7 +43,6 @@ struct MainPage {
     .barWidth(this.currentDeviceSize === CommonConstants.LG ? StyleConstants.BAR_WIDTH_LG : StyleConstants.FULL_PARENT)
     .barHeight(this.currentDeviceSize === CommonConstants.LG ? StyleConstants.BAR_HEIGHT_LG : StyleConstants.BAR_DEFAULT_HEIGHT)
     .vertical(this.currentDeviceSize === CommonConstants.LG)
-    .backgroundColor(Color.White)
     .barMode(BarMode.Fixed)
     .scrollable(false)
     .onChange((index)=>{
