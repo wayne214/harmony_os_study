@@ -1,15 +1,49 @@
 import { ViewStateConstant } from '../../common/constants/ViewStateConstant'
+import Logger from '../../common/utils/Logger'
+import { getHomeList } from '../../http/apiService'
+import { HomeModelIssueListItemList } from '../../model/HomeModel'
+import { RoutePath } from '../../route/RoutePath'
+import { Router } from '../../route/Router'
 import { CommonTopBar } from '../../view/CommonTopBar'
 import { RefreshFooter } from '../../view/RefreshFooter'
 import { StateComponent } from '../../view/StateComponent'
+import HomeViewModel  from '../../viewmodel/HomeViewModel'
+import { HomeListItemComponent } from './component/HomeListItemComponent'
 @Component
 export default struct HomePage {
   @State viewState: string = ViewStateConstant.VIEW_STATE_LOADING
   @State isRefreshing: boolean = false
   @State showLoading: boolean = false
+  @State dataList: HomeModelIssueListItemList[] = []
+  // @Consume @Watch('onTabSelected') homeTabSelected: number
+
+  aboutToAppear() {
+    HomeViewModel.observeState(state => {
+      this.viewState = state
+    })
+
+    this.loadNet()
+  }
+
+  // onTabSelected() {
+  //   Logger.debug("onTabSelected>>>", `${this.homeTabSelected}`)
+  // }
 
   loadNet() {
+    HomeViewModel.getHomeList(
+      (result) => {
+        console.log("---数据", result)
+        this.isRefreshing = false
+        this.showLoading = false
+        if(HomeViewModel.getDate() == "") {
+          this.dataList = result
+        } else {
+          this.dataList = [...this.dataList, ...result]
+        }
+      }
+    )
 
+    // HomeViewModel.getHomeListByHttp()
   }
 
   build() {
@@ -27,9 +61,11 @@ export default struct HomePage {
         }) {
           Refresh({refreshing: $$this.isRefreshing, offset: 100,, friction: 100}) {
             List({space: 10, initialIndex: 0}) {
-              ForEach([], (item, index: number)=> {
+              ForEach(this.dataList, (item: HomeModelIssueListItemList, index: number)=> {
                 ListItem() {
-                  Text("测试数据。。。")
+                  HomeListItemComponent({item: item}).onClick(()=>{
+                    Router.push(RoutePath.DetailPage, { "id": item?.data?.id, playUrl: item?.data?.playUrl })
+                  })
                 }
               })
 
@@ -51,6 +87,7 @@ export default struct HomePage {
             })
           }
           .onRefreshing(()=> {
+            HomeViewModel.revertDate()
             this.loadNet()
           })
           .padding({left: 10, right: 10})

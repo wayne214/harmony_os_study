@@ -13,6 +13,7 @@
     "pages/hot/HotPage",
     "pages/home/HomePage",
     "pages/mine/MinePage",
-    "pages/container/ContainerPage"
+    "pages/container/ContainerPage",
+    "pages/commonDetail/DetailPageNew"
   ]
 }

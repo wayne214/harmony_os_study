@@ -399,6 +399,46 @@
     {
       "name": "common_margin_larger",
       "value": "24vp"
+    },
+    {
+      "name": "size_1",
+      "value": "1vp"
+    },
+    {
+      "name": "size_2",
+      "value": "2vp"
+    },
+    {
+      "name": "size_3",
+      "value": "3vp"
+    },
+    {
+      "name": "size_4",
+      "value": "4vp"
+    },
+    {
+      "name": "size_5",
+      "value": "5vp"
+    },
+    {
+      "name": "size_6",
+      "value": "6vp"
+    },
+    {
+      "name": "size_7",
+      "value": "7vp"
+    },
+    {
+      "name": "size_8",
+      "value": "8vp"
+    },
+    {
+      "name": "size_9",
+      "value": "9vp"
+    },
+    {
+      "name": "size_10",
+      "value": "10vp"
     }
   ]
 }

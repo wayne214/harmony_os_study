@@ -12,6 +12,7 @@ import MainViewModel2 from '../viewmodel/MainViewModel2'
 struct MainPage {
   @StorageProp('currentDeviceSize') currentDeviceSize: string = CommonConstants.SM;
   @State currentIndex: number = CommonConstants.HOME_TAB_INDEX;
+  @Provide homeTabSelected: number = 0
   aboutToDisappear() {
     MultipleDevicesUtils.unregister();
   }
@@ -47,6 +48,7 @@ struct MainPage {
     .scrollable(false)
     .onChange((index)=>{
       this.currentIndex = index;
+      this.homeTabSelected = index
     })
   }
 
