@@ -1,6 +1,7 @@
 import router from '@ohos.router'
 import { CommonTopBar } from '../../view/CommonTopBar'
 import { VideoComponent } from '../../view/VideoComponent'
+import { VideoBottomComponent } from './component/VideoBottomComponent'
 @Entry
 @Component
 struct DetailPageNew {
@@ -19,6 +20,13 @@ struct DetailPageNew {
     Column(){
       CommonTopBar({title: '视频详情', alpha: 1})
       this.headerPlayer()
+      VideoBottomComponent({
+        relationId: this.relationId,
+        onItemClick: (playUrl) => {
+          this.playUrl = playUrl
+        }
+      })
+        .layoutWeight(1)
 
     }
     .width('100%')
