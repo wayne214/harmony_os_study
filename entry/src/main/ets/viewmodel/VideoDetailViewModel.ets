@@ -8,7 +8,8 @@ export class VideoDetailViewModel extends BaseViewModel {
       .promise(getRelationList(this.relationId), true)
       .then((result)=>{
         console.log("详情数据", result)
-        let filterList = result.data.itemList.filter((item)=> item.data.type === "videoSmallCard")
+        // let filterList = result.data.itemList.filter((item)=> item.data.type === "videoSmallCard")
+        let filterList = result.data.itemList
         resultCallback?.(filterList)
       })
   }
