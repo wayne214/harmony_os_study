@@ -1,3 +1,4 @@
+import { FocusModel } from '../model/FocusModel'
 import { HomeModel } from '../model/HomeModel'
 import axiosClient from './AxiosRequest'
 import httpClient from './request'
@@ -55,6 +56,18 @@ export function getRankList(rankType: string) {
     {
       url: baseUrl + "api/v4/rankList/videos",
       params: { "strategy": rankType }
+    }
+  )
+}
+
+/**
+ * 获取关注接口
+ */
+export function getFocusData(pageIndex: number = 0) {
+  return axiosClient.get<FocusModel>(
+    {
+      url: baseUrl + "api/v4/tabs/follow",
+      params: { "start": pageIndex }
     }
   )
 }
