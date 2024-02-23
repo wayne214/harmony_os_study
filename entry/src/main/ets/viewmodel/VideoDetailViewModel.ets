@@ -7,9 +7,8 @@ export class VideoDetailViewModel extends BaseViewModel {
     await this.httpRequest()
       .promise(getRelationList(this.relationId), true)
       .then((result)=>{
-        console.log("详情数据", result)
-        // let filterList = result.data.itemList.filter((item)=> item.data.type === "videoSmallCard")
-        let filterList = result.data.itemList
+        console.log("详情数据", JSON.stringify(result) as string)
+        let filterList = result.data.itemList.filter((item)=> item.data.dataType === "VideoBeanForClient")
         resultCallback?.(filterList)
       })
   }
