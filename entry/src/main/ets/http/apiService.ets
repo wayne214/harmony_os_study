@@ -1,6 +1,8 @@
 import { CategoryModel, DataModel } from '../model/CategoryModel'
 import { FocusModel } from '../model/FocusModel'
 import { HomeModel } from '../model/HomeModel'
+import { TopicDetailModel, TopicDetailResult } from '../model/TopicDetailModel'
+import { TopicModel } from '../model/TopicModel'
 import axiosClient from './AxiosRequest'
 import httpClient from './request'
 let baseUrl = "https://baobab.kaiyanapp.com/"
@@ -84,4 +86,28 @@ export function getCategories() {
     // checkLoginState: true,
     // needJumpToLogin: true,
   })
+}
+
+/**
+ * 获取专题接口
+ */
+export function getTopicDatas(start: number = 0) {
+  return axiosClient.get<TopicModel>(
+    {
+      url: baseUrl + "api/v3/specialTopics",
+      params: { "start": start }
+    }
+  )
+}
+
+/**
+ *获取主题详情接口
+ * @param id
+ */
+export function getTopicDetailList(id: number) {
+  return axiosClient.get<TopicDetailResult>(
+    {
+      url: baseUrl + "api/v3/lightTopics/internal/" + id
+    }
+  )
 }
