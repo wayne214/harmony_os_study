@@ -1,3 +1,4 @@
+import { CategoryModel, DataModel } from '../model/CategoryModel'
 import { FocusModel } from '../model/FocusModel'
 import { HomeModel } from '../model/HomeModel'
 import axiosClient from './AxiosRequest'
@@ -70,4 +71,17 @@ export function getFocusData(pageIndex: number = 0) {
       params: { "start": pageIndex }
     }
   )
+}
+
+/**
+ * 获取分类数据
+ * @returns
+ */
+export function getCategories() {
+  return axiosClient.get<DataModel>({
+    url: baseUrl + "api/v4/categories",
+    // showLoading: true,
+    // checkLoginState: true,
+    // needJumpToLogin: true,
+  })
 }
