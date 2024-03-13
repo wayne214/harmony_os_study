@@ -1,3 +1,4 @@
+import { CommonConstants } from '../common/constants/CommonConstants'
 import { CategoryModel, DataModel } from '../model/CategoryModel'
 import { FocusModel } from '../model/FocusModel'
 import { HomeModel } from '../model/HomeModel'
@@ -86,6 +87,25 @@ export function getCategories() {
     // checkLoginState: true,
     // needJumpToLogin: true,
   })
+}
+
+/**
+ * 获取分类详情接口
+ * @param id
+ * @param start
+ */
+export function getCategoryDetailList(id: number, start: number) {
+  return axiosClient.get<HomeModel>(
+    {
+      url: baseUrl + "api/v4/categories/videoList",
+      params: {
+        "id": id,
+        "start": start,
+        "udid": CommonConstants.UUID,
+        deviceModel: CommonConstants.DEVICE_NUM
+      }
+    }
+  )
 }
 
 /**

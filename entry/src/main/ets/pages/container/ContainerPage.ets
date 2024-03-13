@@ -1,5 +1,8 @@
 import router from '@ohos.router'
 import { CommonTopBar } from '../../view/CommonTopBar';
+import { CategoryPage } from '../find/category/CategoryPage';
+import { FocusPage } from '../find/focus/FocusPage';
+import { TopicPage } from '../find/topic/TopicPage';
 @Entry
 @Component
 struct ContainerPage {
@@ -24,11 +27,11 @@ struct ContainerPage {
   @Builder
   buildContent() {
     if (this.containerType == 'focus') {
-      // FocusPage({ hasInit: true })
+      FocusPage({ hasInit: true })
     } else if (this.containerType == 'topic') {
-      // TopicPage({ hasInit: true })
+      TopicPage({ hasInit: true })
     } else if (this.containerType == 'category') {
-      // CategoryPage({ hasInit: true })
+      CategoryPage({ hasInit: true })
     } else {
       Text("暂未找到页面")
     }

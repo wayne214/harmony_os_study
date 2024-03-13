@@ -485,6 +485,18 @@ export class CommonConstants {
    */
   static readonly LIST_OFFSET_UNIT: string = 'px';
 
+  /**
+   * 设备UUID
+   * @type {string}
+   */
+  static readonly UUID = "3e7ee30c6fc0004a773dc33b0597b5732b145c04";
+
+  /**
+   * 设备号
+   * @type {string}
+   */
+  static readonly DEVICE_NUM = "ONEPLUS%20A6000"
+
 }
 
 /**
