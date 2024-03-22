@@ -1,3 +1,5 @@
+import image from '@ohos.multimedia.image'
+import notification from '@ohos.notificationManager';
 import { RoutePath } from '../../route/RoutePath'
 import { Router } from '../../route/Router'
 import { CommonDialog } from '../../view/CommonDialog'
@@ -17,6 +19,33 @@ export default struct MinePage {
   aboutToAppear() {}
   aboutToDisappear() {
     this.dialogController = null
+  }
+
+  async publishPictureNotification() {
+    let resourceManager = getContext(this).resourceManager;
+    let imageArray = await resourceManager.getMediaContent($r('app.media.app_icon').id);
+    let imageResource = image.createImageSource(imageArray.buffer);
+    let pixelMap = await imageResource.createPixelMap();
+
+    let notificationRequest: notification.NotificationRequest = {
+      id: 1,
+      content: {
+        contentType: notification.ContentType.NOTIFICATION_CONTENT_PICTURE,
+        picture: {
+          title: '好物热销中', // 通知内容标题
+          text: '展开查看详情', // 通知内容
+          expandedTitle: '今日热门推荐', // 通知展开时的内容标题
+          briefText: '这里一定有您喜欢的', // 通知概要内容，是对通知内容的总结
+          picture: pixelMap // 通知的图片内容
+        }
+      }
+    }
+
+    notification.publish(notificationRequest).then(() => { // 发布通知
+      console.info('publish success');
+    }).catch((err) => {
+      console.error(`publish failed, dcode:${err.code}, message:${err.message}`);
+    });
   }
 
   build() {
@@ -51,6 +80,7 @@ export default struct MinePage {
         })
         this.itemBuilder("关于", $r('app.media.icon_about'), () => {
           this.dialogController.open()
+          // this.publishPictureNotification()
         })
       }
       .justifyContent(FlexAlign.Start)
