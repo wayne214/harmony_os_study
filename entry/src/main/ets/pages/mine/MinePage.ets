@@ -3,6 +3,7 @@ import notification from '@ohos.notificationManager';
 import { RoutePath } from '../../route/RoutePath'
 import { Router } from '../../route/Router'
 import { CommonDialog } from '../../view/CommonDialog'
+import call from '@ohos.telephony.call';
 @Component
 @Entry
 export default struct MinePage {
@@ -48,6 +49,18 @@ export default struct MinePage {
     });
   }
 
+  makeCall() {
+    let isSupport = call.hasVoiceCapability();
+    if(!isSupport) {
+      console.log("not support voice capability, return.");
+      return;
+    }
+
+    call.makeCall("18612345678", (err)=> {
+
+    })
+  }
+
   build() {
     Scroll() {
       Column() {
@@ -79,8 +92,9 @@ export default struct MinePage {
           Router.push(RoutePath.ContainerPage, { "containerType": "topic" })
         })
         this.itemBuilder("关于", $r('app.media.icon_about'), () => {
-          this.dialogController.open()
+          // this.dialogController.open()
           // this.publishPictureNotification()
+          this.makeCall()
         })
       }
       .justifyContent(FlexAlign.Start)
