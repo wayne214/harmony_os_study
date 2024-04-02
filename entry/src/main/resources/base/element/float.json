@@ -439,6 +439,10 @@
     {
       "name": "size_10",
       "value": "10vp"
+    },
+    {
+      "name": "font_size",
+      "value": "16fp"
     }
   ]
 }

@@ -1,17 +1,17 @@
 {
   "module": {
     "name": "entry",
-    "type": "entry",
+    "type": "entry", // 表示当前模块的类型，类型有：entry（项目入口）、feature（动态特性包）、har（静态包）、shared（动态共享包）。一般来说项目的入口模块类型是 entry，其他业务模块的类型是 feature，纯粹的库类型为 shared
     "description": "$string:module_desc",
-    "mainElement": "EntryAbility",
-    "deviceTypes": [
+    "mainElement": "EntryAbility", // 表示当前模块的入口 UIAbility 名称，名词要和后面的 abilities 中声明的一致
+    "deviceTypes": [ // 表示当前模块可以运行在哪类设备上，支持的值为 phone、tablet、tv、wearable、car（可以看到，鸿蒙能开发的应用类型还是很多的）
       "phone",
       "tablet"
     ],
     "deliveryWithInstall": true,
     "installationFree": false,
-    "pages": "$profile:main_pages",
-    "abilities": [
+    "pages": "$profile:main_pages", // 表示当前模块可以运行在哪类设备上，支持的值为 phone、tablet、tv、wearable、car（可以看到，鸿蒙能开发的应用类型还是很多的）
+    "abilities": [ // 当前模块里的所有 UIAbility 信息
       {
         "name": "EntryAbility",
         "srcEntry": "./ets/entryability/EntryAbility.ts",
@@ -26,7 +26,7 @@
             "entities": [
               "entity.system.home"
             ],
-            "actions": [
+            "actions": [ // actions 表示能够接收的行为，包括系统预定义的和自定义的。
               "action.system.home"
             ]
           }
@@ -43,6 +43,21 @@
           ],
           "when": "inuse"
         }
+      }
+    ],
+    "extensionAbilities": [
+      {
+        "name": "EntryFormAbility",
+        "srcEntry": "./ets/entryformability/EntryFormAbility.ts",
+        "label": "$string:EntryFormAbility_label",
+        "description": "$string:EntryFormAbility_desc",
+        "type": "form",
+        "metadata": [
+          {
+            "name": "ohos.extension.form",
+            "resource": "$profile:form_config"
+          }
+        ]
       }
     ]
   }
