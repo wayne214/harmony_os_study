@@ -3,6 +3,7 @@ import hilog from '@ohos.hilog';
 import UIAbility from '@ohos.app.ability.UIAbility';
 import type Want from '@ohos.app.ability.Want';
 import type window from '@ohos.window';
+import worker from '@ohos.worker';
 
 /**
  * Lift cycle management of Ability.
@@ -10,6 +11,18 @@ import type window from '@ohos.window';
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
+
+    let wk = new worker.ThreadWorker("entry/ets/workers/worker.ts")
+    // 发送消息到worker线程
+    wk.postMessage("message from main thread")
+    // 处理来自worker线程的消息
+    wk.onmessage = function(message) {
+      console.info("message from worker: " + message)
+
+      // 根据业务按需停止worker线程
+      wk.terminate()
+    }
+
   }
 
   onDestroy(): void {
