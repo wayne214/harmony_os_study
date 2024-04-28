@@ -4,6 +4,7 @@ import { RoutePath } from '../../route/RoutePath'
 import { Router } from '../../route/Router'
 import { CommonDialog } from '../../view/CommonDialog'
 import call from '@ohos.telephony.call';
+import router from '@ohos.router';
 @Component
 @Entry
 export default struct MinePage {
@@ -96,6 +97,11 @@ export default struct MinePage {
           // this.publishPictureNotification()
           this.makeCall()
         })
+
+        Button("测试")
+          .onClick(()=>{
+            router.pushUrl({url: 'pages/tickets/TicketSearchPage'})
+          })
       }
       .justifyContent(FlexAlign.Start)
       .height('100%')

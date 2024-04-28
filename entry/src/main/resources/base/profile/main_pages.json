@@ -16,6 +16,7 @@
     "pages/container/ContainerPage",
     "pages/commonDetail/DetailPageNew",
     "pages/categoryDetail/CategoryDetailPage",
-    "pages/topicDetail/TopicDetailPage"
+    "pages/topicDetail/TopicDetailPage",
+    "pages/tickets/TicketSearchPage"
   ]
 }
